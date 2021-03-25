@@ -12,6 +12,8 @@ BasicStepperDriver stepper1(MOTOR_STEPS, 3, 2);
 BasicStepperDriver stepper2(MOTOR_STEPS, 5, 4);
 SyncDriver controller(stepper1, stepper2);
 
+void setSpeed(int);
+
 void setup() {
   Serial.begin(9600);
   stepper1.begin(250, MICROSTEPS);
@@ -19,8 +21,11 @@ void setup() {
 }
 
 void loop() {
-  controller.rotate(90*5, -90*5);
-  delay(1000);
-  controller.rotate(-90*5, 90*5);
-  delay(5000);
+  setSpeed(240);
+  controller.rotate(5, -5);
+}
+
+void setSpeed(int speed){
+  stepper1.setRPM(speed);
+  stepper2.setRPM(speed);
 }
